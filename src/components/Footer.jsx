@@ -19,13 +19,13 @@ function Footer({ hasPoster, isBusy, onDownloadPdf, onPrint, onOpenMellowtelSett
 				</div>
 
 				<Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
-					<Button variant="outlined" onClick={onOpenMellowtelSettings}>
+					{/* <Button variant="outlined" onClick={onOpenMellowtelSettings}>
 						Mellowtel
-					</Button>
-
+					</Button> */}
+{/* 
 					<Button variant="outlined" disabled={!hasPoster || isBusy} onClick={onPrint}>
 						Imprimir
-					</Button>
+					</Button> */}
 
 					<Button variant="contained" disabled={!hasPoster || isBusy} onClick={onDownloadPdf}>
 						Gerar PDF

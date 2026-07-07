@@ -24,6 +24,12 @@ void getMellowtelInstance().catch((error) => {
     console.error("Falha ao inicializar o Mellowtel no background:", error);
 });
 
+chrome.action.onClicked.addListener(() => {
+    chrome.tabs.create({
+        url: chrome.runtime.getURL("index.html")
+    });
+});
+
 chrome.runtime.onInstalled.addListener(async (details) => {
     try {
         const mellowtel = await getMellowtelInstance();
