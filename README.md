@@ -15,3 +15,18 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
 # poster-print-extension
+
+## Configuração
+
+Crie uma variável de ambiente `VITE_MELLOWTEL_CONFIGURATION_KEY` com a chave do seu projeto no painel do Mellowtel. Sem essa chave, o popup funciona normalmente, mas os links de suporte do Mellowtel ficam desativados.
+
+## Desenvolvimento
+
+```bash
+npm install
+npm run dev
+```
+
+## Publicação
+
+Antes de enviar para a Chrome Web Store, rode `npm run build` e publique o conteúdo gerado em `dist/`. O manifesto já inclui o service worker, o content script do Mellowtel, permissões necessárias e o popup da extensão.
