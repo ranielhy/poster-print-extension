@@ -127,7 +127,14 @@ function ImageUploader({ imageName, imageSource, onImageSelected, onClearImage }
 										event.stopPropagation();
 										onClearImage();
 									}}
-									sx={{ color: "#6b7280" }}
+									sx={{ 
+										color: "#dc2626",
+										border: "2px solid #dc2626",
+										"&:hover": {
+											backgroundColor: "#fee2e2",
+											border: "2px solid #dc2626"
+										}
+									}}
 								>
 									Remover
 								</Button>

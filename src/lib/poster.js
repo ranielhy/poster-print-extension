@@ -1,7 +1,12 @@
 const DEFAULT_PAGE_WIDTH = 1240;
 const DEFAULT_PAGE_HEIGHT = 1754;
-const PAGE_INSET_HORIZONTAL = 4;
-const PAGE_INSET_VERTICAL = 8;
+let PAGE_INSET_HORIZONTAL = 4;
+let PAGE_INSET_VERTICAL = 8;
+
+export function setPageMargin(marginPixels) {
+    PAGE_INSET_HORIZONTAL = marginPixels;
+    PAGE_INSET_VERTICAL = marginPixels;
+}
 
 function clamp(value, minimum, maximum) {
     return Math.min(Math.max(value, minimum), maximum);
@@ -132,7 +137,8 @@ function renderTile(image, tile, pageWidth, pageHeight) {
     return canvas.toDataURL("image/png");
 }
 
-export async function buildPosterPages(source, columns, rows) {
+export async function buildPosterPages(source, columns, rows, pageMargin = 8) {
+    setPageMargin(pageMargin);
     const image = await loadImage(source);
     const pageSize = getPosterPageSize(image.naturalWidth, image.naturalHeight, columns, rows);
     const tiles = getPosterTiles(image.naturalWidth, image.naturalHeight, columns, rows);

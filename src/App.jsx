@@ -118,6 +118,8 @@ function App() {
     const [imageSize, setImageSize] = useState(null);
     const [columns, setColumns] = useState(2);
     const [rows, setRows] = useState(2);
+    const [pageSize, setPageSize] = useState("A4");
+    const [pageMargin, setPageMargin] = useState(8);
     const [poster, setPoster] = useState(null);
     const [isBuilding, setIsBuilding] = useState(false);
     const [isPrinting, setIsPrinting] = useState(false);
@@ -136,7 +138,7 @@ function App() {
             setIsBuilding(true);
 
             try {
-                const posterData = await buildPosterPages(imageSource, columns, rows);
+                const posterData = await buildPosterPages(imageSource, columns, rows, pageMargin);
 
                 if (active) {
                     setPoster(posterData);
@@ -158,7 +160,7 @@ function App() {
         return () => {
             active = false;
         };
-    }, [imageSource, columns, rows]);
+    }, [imageSource, columns, rows, pageMargin]);
 
     useEffect(() => {
         return () => {
@@ -302,6 +304,10 @@ function App() {
                     onRowsChange={setRows}
                     pageCount={pageCount}
                     imageSize={imageSize ? formatDimensions(imageSize.width, imageSize.height) : "Nenhuma imagem selecionada"}
+                    pageSize={pageSize}
+                    onPageSizeChange={setPageSize}
+                    pageMargin={pageMargin}
+                    onPageMarginChange={setPageMargin}
                 />
 
                 {feedback ? <Alert severity="info">{feedback}</Alert> : null}
