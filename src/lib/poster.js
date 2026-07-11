@@ -1,6 +1,7 @@
 const DEFAULT_PAGE_WIDTH = 1240;
 const DEFAULT_PAGE_HEIGHT = 1754;
-const PAGE_INSET = 56;
+const PAGE_INSET_HORIZONTAL = 4;
+const PAGE_INSET_VERTICAL = 8;
 
 function clamp(value, minimum, maximum) {
     return Math.min(Math.max(value, minimum), maximum);
@@ -96,9 +97,10 @@ function renderTile(image, tile, pageWidth, pageHeight) {
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, pageWidth, pageHeight);
 
-    const inset = PAGE_INSET;
-    const availableWidth = pageWidth - inset * 2;
-    const availableHeight = pageHeight - inset * 2;
+    const insetH = PAGE_INSET_HORIZONTAL;
+    const insetV = PAGE_INSET_VERTICAL;
+    const availableWidth = pageWidth - insetH * 2;
+    const availableHeight = pageHeight - insetV * 2;
     const drawRect = getContainRect(tile.width, tile.height, availableWidth, availableHeight);
 
     context.drawImage(
@@ -107,8 +109,8 @@ function renderTile(image, tile, pageWidth, pageHeight) {
         tile.y,
         tile.width,
         tile.height,
-        inset + drawRect.x,
-        inset + drawRect.y,
+        insetH + drawRect.x,
+        insetV + drawRect.y,
         drawRect.width,
         drawRect.height
     );

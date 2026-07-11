@@ -52,55 +52,88 @@ function ImageUploader({ imageName, imageSource, onImageSelected, onClearImage }
 			<div className="surface-number">1</div>
 			<div className="surface-inner">
 				<Stack spacing={2} className="upload-content">
-				<Box className="upload-icon">
-					<AddPhotoAlternateOutlinedIcon />
-				</Box>
+					{!imageSource ? (
+						<>
+							<Box className="upload-icon">
+								<AddPhotoAlternateOutlinedIcon sx={{ fontSize: 32 }} />
+							</Box>
 
-				<div>
-					<Typography variant="h6" component="h2">
-						Solte uma imagem aqui ou selecione um arquivo
-					</Typography>
+							<div>
+								<Typography variant="h6" component="h2" sx={{ fontWeight: 600, color: "#0f1724" }}>
+									Solte uma imagem aqui ou selecione um arquivo
+								</Typography>
 
-					<Typography className="upload-copy">
-						A prévia e o PDF são gerados a partir do arquivo original, sem dependência de servidor.
-					</Typography>
-				</div>
+								<Typography className="upload-copy">
+									A prévia e o PDF são gerados a partir do arquivo original, sem dependência de servidor.
+								</Typography>
+							</div>
 
-				<Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} alignItems={{ xs: "stretch", sm: "center" }}>
-					<Button
-						variant="contained"
-						onClick={(event) => {
-							event.stopPropagation();
-							openPicker();
-						}}
-					>
-						Selecionar imagem
-					</Button>
+							<Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} alignItems={{ xs: "stretch", sm: "center" }}>
+								<Button
+									variant="contained"
+									onClick={(event) => {
+										event.stopPropagation();
+										openPicker();
+									}}
+								>
+									Selecionar imagem
+								</Button>
+							</Stack>
 
-					{imageSource ? (
-						<Button
-							variant="text"
-							color="inherit"
-							startIcon={<DeleteOutlinedIcon />}
-							onClick={(event) => {
-								event.stopPropagation();
-								onClearImage();
-							}}
-						>
-							Remover
-						</Button>
-					) : null}
-				</Stack>
+							<Typography sx={{ fontSize: 12, color: "#9CA3AF" }}>
+								Formatos suportados: JPG, PNG, WEBP • Máx. 20MB
+							</Typography>
+						</>
+					) : (
+						<Stack spacing={2} alignItems="center" sx={{ width: "100%" }}>
+							<Box
+								component="div"
+								sx={{
+									width: "120px",
+									height: "120px",
+									borderRadius: "12px",
+									overflow: "hidden",
+									border: "2px solid #E5E7EB"
+								}}
+							>
+								<img src={imageSource} alt="Prévia da imagem selecionada" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+							</Box>
 
-				{imageSource ? (
-					<Stack direction="row" spacing={1.5} alignItems="center" className="selected-file">
-						<img src={imageSource} alt="Prévia da imagem selecionada" />
-						<div>
-							<Typography variant="subtitle2">Arquivo carregado</Typography>
-							<Typography className="selected-file-name">{imageName}</Typography>
-						</div>
-					</Stack>
-				) : null}
+							<Stack spacing={0.5} sx={{ textAlign: "center", width: "100%" }}>
+								<Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#0f1724" }}>
+									Arquivo carregado
+								</Typography>
+								<Typography className="selected-file-name">{imageName}</Typography>
+							</Stack>
+
+							<Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} alignItems="center" sx={{ width: "100%" }}>
+								<Button
+									variant="contained"
+									fullWidth
+									onClick={(event) => {
+										event.stopPropagation();
+										openPicker();
+									}}
+								>
+									Trocar imagem
+								</Button>
+
+								<Button
+									variant="text"
+									color="inherit"
+									startIcon={<DeleteOutlinedIcon />}
+									fullWidth
+									onClick={(event) => {
+										event.stopPropagation();
+										onClearImage();
+									}}
+									sx={{ color: "#6b7280" }}
+								>
+									Remover
+								</Button>
+							</Stack>
+						</Stack>
+					)}
 				</Stack>
 			</div>
 		</Paper>

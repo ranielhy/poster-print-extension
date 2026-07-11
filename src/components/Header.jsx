@@ -10,7 +10,9 @@ function Header({ onOpenMellowtelSettings }) {
 
 			<div>
 				<Typography variant="h3" component="h1" className="brand-title">
-					Quebre uma imagem em folhas de impressão sem perder o controle.
+					Quebre uma imagem em folhas de impressão
+					<br />
+					<span className="text-gradient">sem perder o controle.</span>
 				</Typography>
 
 				<Typography className="brand-subtitle">
@@ -19,7 +21,7 @@ function Header({ onOpenMellowtelSettings }) {
 			</div>
 
 			<Button variant="outlined" className="support-button" onClick={onOpenMellowtelSettings}>
-				Ajustar suporte Mellowtel
+				♡ Ajustar suporte Mellowtel
 			</Button>
 		</Stack>
 	);

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Alert from "@mui/material/Alert";
 import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -271,6 +272,8 @@ function App() {
             <Stack spacing={2.5}>
                 <Header onOpenMellowtelSettings={handleOpenMellowtelSettings} />
 
+                <Divider sx={{ my: 2 }} />
+
                 <Paper className="hero-surface" elevation={0}>
                     <Typography variant="overline" className="eyebrow">
                         Fluxo de impressão
@@ -316,6 +319,7 @@ function App() {
                     onDownloadPdf={handleDownloadPdf}
                     onPrint={handlePrint}
                     onOpenMellowtelSettings={handleOpenMellowtelSettings}
+                    onClearImage={handleClearImage}
                 />
             </Stack>
         </Container>
