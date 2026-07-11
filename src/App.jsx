@@ -7,7 +7,6 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { jsPDF } from "jspdf";
-import Mellowtel from "mellowtel";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -17,6 +16,10 @@ import SettingsPanel from "./components/SettingsPanel";
 import { buildPosterPages, formatDimensions } from "./lib/poster";
 
 const configurationKey = import.meta.env.VITE_MELLOWTEL_CONFIGURATION_KEY ?? "";
+
+function hasExtensionStorage() {
+    return typeof chrome !== "undefined" && Boolean(chrome.storage?.local) && Boolean(chrome.runtime?.id);
+}
 
 async function createPdfFile(tiles, pageWidth, pageHeight, fileName) {
     const pdf = new jsPDF({
@@ -258,7 +261,13 @@ function App() {
             return;
         }
 
+        if (!hasExtensionStorage()) {
+            setFeedback("Mellowtel só funciona dentro da extensão instalada.");
+            return;
+        }
+
         try {
+            const { default: Mellowtel } = await import("mellowtel");
             const mellowtel = new Mellowtel(configurationKey);
             const settingsLink = await mellowtel.generateSettingsLink();
             window.open(settingsLink, "_blank", "noopener,noreferrer");
@@ -269,12 +278,14 @@ function App() {
 
     const pageCount = poster?.tiles.length ?? 0;
 
+    const hasImage = Boolean(imageSource);
+
     return (
-        <Container className="app-shell" maxWidth="xl" sx={{ py: 2.5, px: { xs: 1.5, sm: 2.5 }, width: "100%" }}>
-            <Stack spacing={2.5}>
+        <Container className="app-shell" maxWidth="xl" sx={{ py: 1.5, px: { xs: 1, sm: 1.5 }, width: "100%" }}>
+            <Stack spacing={1.5}>
                 <Header onOpenMellowtelSettings={handleOpenMellowtelSettings} />
 
-                <Divider sx={{ my: 2 }} />
+                <Divider sx={{ my: 1.25 }} />
 
                 <Paper className="hero-surface" elevation={0}>
                     <Typography variant="overline" className="eyebrow">
@@ -297,36 +308,40 @@ function App() {
                     onClearImage={handleClearImage}
                 />
 
-                <SettingsPanel
-                    columns={columns}
-                    rows={rows}
-                    onColumnsChange={setColumns}
-                    onRowsChange={setRows}
-                    pageCount={pageCount}
-                    imageSize={imageSize ? formatDimensions(imageSize.width, imageSize.height) : "Nenhuma imagem selecionada"}
-                    pageSize={pageSize}
-                    onPageSizeChange={setPageSize}
-                    pageMargin={pageMargin}
-                    onPageMarginChange={setPageMargin}
-                />
+                {hasImage ? (
+                    <>
+                        <SettingsPanel
+                            columns={columns}
+                            rows={rows}
+                            onColumnsChange={setColumns}
+                            onRowsChange={setRows}
+                            pageCount={pageCount}
+                            imageSize={imageSize ? formatDimensions(imageSize.width, imageSize.height) : "Nenhuma imagem selecionada"}
+                            pageSize={pageSize}
+                            onPageSizeChange={setPageSize}
+                            pageMargin={pageMargin}
+                            onPageMarginChange={setPageMargin}
+                        />
 
-                {feedback ? <Alert severity="info">{feedback}</Alert> : null}
+                        {feedback ? <Alert severity="info">{feedback}</Alert> : null}
 
-                <PreviewCanvas
-                    tiles={poster?.tiles ?? []}
-                    isLoading={isBuilding}
-                    pageWidth={poster?.pageWidth ?? 0}
-                    pageHeight={poster?.pageHeight ?? 0}
-                />
+                        <PreviewCanvas
+                            tiles={poster?.tiles ?? []}
+                            isLoading={isBuilding}
+                            pageWidth={poster?.pageWidth ?? 0}
+                            pageHeight={poster?.pageHeight ?? 0}
+                        />
 
-                <Footer
-                    isBusy={isPrinting || isBuilding}
-                    hasPoster={Boolean(poster)}
-                    onDownloadPdf={handleDownloadPdf}
-                    onPrint={handlePrint}
-                    onOpenMellowtelSettings={handleOpenMellowtelSettings}
-                    onClearImage={handleClearImage}
-                />
+                        <Footer
+                            isBusy={isPrinting || isBuilding}
+                            hasPoster={Boolean(poster)}
+                            onDownloadPdf={handleDownloadPdf}
+                            onPrint={handlePrint}
+                            onOpenMellowtelSettings={handleOpenMellowtelSettings}
+                            onClearImage={handleClearImage}
+                        />
+                    </>
+                ) : null}
             </Stack>
         </Container>
     );
