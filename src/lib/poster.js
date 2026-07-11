@@ -124,15 +124,8 @@ function renderTile(image, tile, pageWidth, pageHeight) {
     context.lineWidth = 4;
     context.strokeRect(2, 2, pageWidth - 4, pageHeight - 4);
 
-    context.fillStyle = "rgba(15, 23, 42, 0.82)";
-    context.beginPath();
-    context.roundRect(24, 24, 128, 44, 22);
-    context.fill();
-
-    context.fillStyle = "#ffffff";
-    context.font = "600 24px 'Trebuchet MS', sans-serif";
-    context.textBaseline = "middle";
-    context.fillText(`P${tile.index}`, 52, 46);
+    // Remover rótulo visível (P1, P2, ...) das imagens geradas.
+    // A pré-visualização exibe índices via UI; não queremos imprimir esses textos no PDF.
 
     return canvas.toDataURL("image/png");
 }
