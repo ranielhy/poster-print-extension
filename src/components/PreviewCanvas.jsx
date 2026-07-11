@@ -4,8 +4,10 @@ import Typography from "@mui/material/Typography";
 
 function PreviewCanvas({ tiles, isLoading, pageWidth, pageHeight }) {
 	return (
-		<Paper className="preview-surface" variant="outlined">
-			<Stack spacing={2}>
+		    <Paper className="preview-surface" variant="outlined">
+			    <div className="surface-number">3</div>
+			    <div className="surface-inner">
+			    <Stack spacing={2}>
 				<div className="section-head">
 					<div>
 						<Typography variant="h6" component="h2">
@@ -42,6 +44,7 @@ function PreviewCanvas({ tiles, isLoading, pageWidth, pageHeight }) {
 					</div>
 				) : null}
 			</Stack>
+			</div>
 		</Paper>
 	);
 }

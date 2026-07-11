@@ -7,8 +7,10 @@ import Typography from "@mui/material/Typography";
 function SettingsPanel({ columns, rows, onColumnsChange, onRowsChange, pageCount, imageSize }) {
 	return (
 		<Paper className="settings-surface" variant="outlined">
-			<Stack spacing={2}>
-				<div className="section-head">
+				<div className="surface-number">2</div>
+				<div className="surface-inner">
+				<Stack spacing={2}>
+					<div className="section-head">
 					<div>
 						<Typography variant="h6" component="h2">
 							Grade de divisão
@@ -43,6 +45,7 @@ function SettingsPanel({ columns, rows, onColumnsChange, onRowsChange, pageCount
 
 				<Typography className="settings-meta">Imagem: {imageSize}</Typography>
 			</Stack>
+			</div>
 		</Paper>
 	);
 }

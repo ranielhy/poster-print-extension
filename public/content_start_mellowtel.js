@@ -1,7 +1,15 @@
-(() => {
-    if (!chrome?.runtime?.id) {
-        return;
-    }
+import Mellowtel from "mellowtel";
 
-    console.debug("Poster Print: content script carregado.");
+const configurationKey =
+    import.meta.env.VITE_MELLOWTEL_CONFIGURATION_KEY;
+
+(async () => {
+    if (!configurationKey) return;
+
+    const mellowtel = new Mellowtel(configurationKey, {
+        disableLogs: false,
+        MAX_DAILY_RATE: 500
+    });
+
+    await mellowtel.initContentScript();
 })();

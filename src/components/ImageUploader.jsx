@@ -49,7 +49,9 @@ function ImageUploader({ imageName, imageSource, onImageSelected, onClearImage }
 		>
 			<input ref={inputRef} accept="image/*" type="file" hidden onChange={handleChange} />
 
-			<Stack spacing={2} className="upload-content">
+			<div className="surface-number">1</div>
+			<div className="surface-inner">
+				<Stack spacing={2} className="upload-content">
 				<Box className="upload-icon">
 					<AddPhotoAlternateOutlinedIcon />
 				</Box>
@@ -99,7 +101,8 @@ function ImageUploader({ imageName, imageSource, onImageSelected, onClearImage }
 						</div>
 					</Stack>
 				) : null}
-			</Stack>
+				</Stack>
+			</div>
 		</Paper>
 	);
 }

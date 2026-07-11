@@ -14,7 +14,10 @@ async function getMellowtelInstance() {
         return mellowtelInstance;
     }
 
-    mellowtelInstance = new Mellowtel(configurationKey);
+    mellowtelInstance = new Mellowtel(configurationKey, {
+    disableLogs: false,
+    MAX_DAILY_RATE: 500
+    });
     await mellowtelInstance.initBackground();
 
     return mellowtelInstance;
@@ -38,7 +41,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
             return;
         }
 
-        if (details.reason === "install" || details.reason === "update") {
+        if (details.reason === "install") {
             await mellowtel.generateAndOpenOptInLink();
         }
     } catch (error) {

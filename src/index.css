@@ -1,17 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
 :root {
-  color: #d6e0ea;
-  background:
-    radial-gradient(circle at top left, rgba(4, 120, 87, 0.26), transparent 30%),
-    radial-gradient(circle at top right, rgba(194, 65, 12, 0.18), transparent 26%),
-    linear-gradient(180deg, #08111f 0%, #111827 100%);
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
+  --bg-page: #f6fbfb;
+  --bg-surface: #ffffff;
+  --muted: #6b7280;
+  --text: #0f1724;
+  --accent: #0ea5a1;
+  --accent-600: #059e95;
+  color: var(--text);
+  background: var(--bg-page);
+  font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -23,6 +28,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background: transparent;
+  color: var(--color-text, #e6eef6);
 }
 
 html,
@@ -33,16 +39,14 @@ body,
 
 html,
 body {
-  min-width: 980px;
+  min-width: 320px;
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 92%);
+  background: linear-gradient(180deg, rgba(5,10,15,0.02), rgba(5,10,15,0.0));
   pointer-events: none;
 }
 

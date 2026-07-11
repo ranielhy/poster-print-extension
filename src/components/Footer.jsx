@@ -5,8 +5,10 @@ import Typography from "@mui/material/Typography";
 
 function Footer({ hasPoster, isBusy, onDownloadPdf, onPrint, onOpenMellowtelSettings }) {
 	return (
-		<Paper className="footer-surface" variant="outlined">
-			<Stack spacing={2}>
+		    <Paper className="footer-surface" variant="outlined">
+			    <div className="surface-number">4</div>
+			    <div className="surface-inner">
+			    <Stack spacing={2}>
 				<div className="section-head">
 					<div>
 						<Typography variant="h6" component="h2">
@@ -32,6 +34,7 @@ function Footer({ hasPoster, isBusy, onDownloadPdf, onPrint, onOpenMellowtelSett
 					</Button>
 				</Stack>
 			</Stack>
+			</div>
 		</Paper>
 	);
 }
