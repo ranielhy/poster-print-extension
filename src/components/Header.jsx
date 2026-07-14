@@ -52,7 +52,7 @@ function Header({ onOpenMellowtelSettings }) {
 							WebkitTextFillColor: "transparent",
 						}}
 					>
-						Crie pôsteres gigantes
+						Transforme imagens em pôster gigante
 					</Typography>
 
 					<Typography
@@ -62,7 +62,7 @@ function Header({ onOpenMellowtelSettings }) {
 							lineHeight: 1.3,
 						}}
 					>
-						Divida imagens em múltiplas páginas para impressão
+						Divida imagens em páginas A4, gere PDF e imprima com facilidade
 					</Typography>
 				</Stack>
 			</Stack>

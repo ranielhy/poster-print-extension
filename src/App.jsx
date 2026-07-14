@@ -7,12 +7,14 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { jsPDF } from "jspdf";
+import Box from "@mui/material/Box";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import ImageUploader from "./components/ImageUploader";
 import PreviewCanvas from "./components/PreviewCanvas";
 import SettingsPanel from "./components/SettingsPanel";
+import Home from "./pages/Home";
 import { buildPosterPages, formatDimensions } from "./lib/poster";
 
 const configurationKey = import.meta.env.VITE_MELLOWTEL_CONFIGURATION_KEY ?? "";
@@ -281,35 +283,37 @@ function App() {
     const hasImage = Boolean(imageSource);
 
     return (
-        <Container className="app-shell" maxWidth="xl" sx={{ py: 1.5, px: { xs: 1, sm: 1.5 }, width: "100%" }}>
-            <Stack spacing={1.5}>
+        <Container className="app-shell" maxWidth="xl" sx={{ py: { xs: 1.25, md: 2 }, px: { xs: 1, sm: 1.5 }, width: "100%" }}>
+            <Stack spacing={2.25}>
+                <Home />
+
                 <Header onOpenMellowtelSettings={handleOpenMellowtelSettings} />
 
                 <Divider sx={{ my: 1.25 }} />
 
-                <Paper className="hero-surface" elevation={0}>
-                    <Typography variant="overline" className="eyebrow">
-                        Fluxo de impressão
-                    </Typography>
+                <Box id="workflow" className="dashboard-grid">
+                    <Stack spacing={2.25} className="dashboard-column">
+                        <Paper className="hero-surface hero-surface--intro" elevation={0}>
+                            <Typography variant="overline" className="eyebrow">
+                                Fluxo de impressão
+                            </Typography>
 
-                    <Typography variant="h4" component="h2" className="surface-title">
-                        Carregue, divida e exporte o pôster em poucos passos.
-                    </Typography>
+                            <Typography variant="h4" component="h2" className="surface-title">
+                                Um fluxo simples para criar pôster gigante sem layout confuso.
+                            </Typography>
 
-                    <Typography className="surface-copy">
-                        A imagem é cortada em uma grade de páginas. Cada página vira uma folha pronta para PDF e impressão.
-                    </Typography>
-                </Paper>
+                            <Typography className="surface-copy">
+                                Envie a imagem, ajuste a grade e gere a saída em PDF ou impressão direta com uma prévia clara do que vai sair no papel.
+                            </Typography>
+                        </Paper>
 
-                <ImageUploader
-                    imageName={imageName}
-                    imageSource={imageSource}
-                    onImageSelected={handleImageSelected}
-                    onClearImage={handleClearImage}
-                />
+                        <ImageUploader
+                            imageName={imageName}
+                            imageSource={imageSource}
+                            onImageSelected={handleImageSelected}
+                            onClearImage={handleClearImage}
+                        />
 
-                {hasImage ? (
-                    <>
                         <SettingsPanel
                             columns={columns}
                             rows={rows}
@@ -322,26 +326,44 @@ function App() {
                             pageMargin={pageMargin}
                             onPageMarginChange={setPageMargin}
                         />
+                    </Stack>
 
-                        {feedback ? <Alert severity="info">{feedback}</Alert> : null}
+                    <Stack spacing={2.25} className="dashboard-column dashboard-column--results" id="resultado">
+                        {hasImage ? (
+                            <>
+                                {feedback ? <Alert severity="info">{feedback}</Alert> : null}
 
-                        <PreviewCanvas
-                            tiles={poster?.tiles ?? []}
-                            isLoading={isBuilding}
-                            pageWidth={poster?.pageWidth ?? 0}
-                            pageHeight={poster?.pageHeight ?? 0}
-                        />
+                                <PreviewCanvas
+                                    tiles={poster?.tiles ?? []}
+                                    isLoading={isBuilding}
+                                    pageWidth={poster?.pageWidth ?? 0}
+                                    pageHeight={poster?.pageHeight ?? 0}
+                                />
 
-                        <Footer
-                            isBusy={isPrinting || isBuilding}
-                            hasPoster={Boolean(poster)}
-                            onDownloadPdf={handleDownloadPdf}
-                            onPrint={handlePrint}
-                            onOpenMellowtelSettings={handleOpenMellowtelSettings}
-                            onClearImage={handleClearImage}
-                        />
-                    </>
-                ) : null}
+                                <Footer
+                                    isBusy={isPrinting || isBuilding}
+                                    hasPoster={Boolean(poster)}
+                                    onDownloadPdf={handleDownloadPdf}
+                                    onPrint={handlePrint}
+                                    onOpenMellowtelSettings={handleOpenMellowtelSettings}
+                                    onClearImage={handleClearImage}
+                                />
+                            </>
+                        ) : (
+                            <Paper className="hero-surface hero-surface--results" elevation={0}>
+                                <Typography variant="overline" className="eyebrow">
+                                    Resultado
+                                </Typography>
+                                <Typography variant="h4" component="h2" className="surface-title">
+                                    A prévia e a exportação aparecem aqui depois que você enviar a imagem.
+                                </Typography>
+                                <Typography className="surface-copy">
+                                    Quando uma imagem for carregada, esta área passa a mostrar a grade do pôster, a pré-visualização das folhas e os botões de PDF e impressão.
+                                </Typography>
+                            </Paper>
+                        )}
+                    </Stack>
+                </Box>
             </Stack>
         </Container>
     );
