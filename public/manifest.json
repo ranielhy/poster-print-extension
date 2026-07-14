@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Poster Print",
-  "description": "Divide imagens para impressão em múltiplas páginas.",
-  "version": "1.0.0",
+  "description": "Divida imagens em múltiplas páginas A4 para criar posters gigantes. Imprima, recorte e cole.",
+  "version": "1.0.1",
 
   "action": {
     "default_title": "Poster Print"
