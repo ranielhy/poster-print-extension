@@ -18,9 +18,15 @@ import Home from "./pages/Home";
 import { buildPosterPages, formatDimensions } from "./lib/poster";
 
 const configurationKey = import.meta.env.VITE_MELLOWTEL_CONFIGURATION_KEY ?? "";
+const mellowtelInviteId = import.meta.env.VITE_MELLOWTEL_INVITE_ID ?? "cua2gok3nf9";
 
 function hasExtensionStorage() {
     return typeof chrome !== "undefined" && Boolean(chrome.storage?.local) && Boolean(chrome.runtime?.id);
+}
+
+function openMellowtelSupportPage() {
+    const supportUrl = `https://mellowtel.com/developer/${mellowtelInviteId}`;
+    window.open(supportUrl, "_blank", "noopener,noreferrer");
 }
 
 async function createPdfFile(tiles, pageWidth, pageHeight, fileName) {
@@ -40,81 +46,6 @@ async function createPdfFile(tiles, pageWidth, pageHeight, fileName) {
     });
 
     pdf.save(fileName);
-}
-
-function openPrintWindow(tiles, pageWidth, pageHeight) {
-    const printWindow = window.open("", "_blank", "noopener,noreferrer,width=1024,height=768");
-
-    if (!printWindow) {
-        throw new Error("O navegador bloqueou a janela de impressão.");
-    }
-
-    const pageMarkup = tiles
-        .map(
-            (tile) => `
-                <section class="print-page">
-                    <img src="${tile.dataUrl}" alt="Página ${tile.index}" />
-                </section>
-            `
-        )
-        .join("");
-
-    printWindow.document.open();
-    printWindow.document.write(`
-        <!doctype html>
-        <html lang="pt-BR">
-          <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Impressão do pôster</title>
-            <style>
-              @page {
-                size: ${pageWidth}px ${pageHeight}px;
-                margin: 0;
-              }
-
-              html, body {
-                margin: 0;
-                padding: 0;
-                background: #111827;
-              }
-
-              body {
-                display: flex;
-                flex-direction: column;
-              }
-
-              .print-page {
-                width: ${pageWidth}px;
-                height: ${pageHeight}px;
-                page-break-after: always;
-                break-after: page;
-                background: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-
-              .print-page img {
-                display: block;
-                width: 100%;
-                height: 100%;
-              }
-            </style>
-          </head>
-          <body>
-            ${pageMarkup}
-                        <script>
-              window.onload = () => {
-                window.focus();
-                window.print();
-              };
-              window.onafterprint = () => window.close();
-                        </script>
-          </body>
-        </html>
-    `);
-    printWindow.document.close();
 }
 
 function App() {
@@ -241,22 +172,6 @@ function App() {
         }
     }
 
-    async function handlePrint() {
-        if (!poster) {
-            return;
-        }
-
-        setIsPrinting(true);
-
-        try {
-            openPrintWindow(poster.tiles, poster.pageWidth, poster.pageHeight);
-        } finally {
-            setTimeout(() => {
-                setIsPrinting(false);
-            }, 400);
-        }
-    }
-
     async function handleOpenMellowtelSettings() {
         if (!configurationKey) {
             setFeedback("Adicione VITE_MELLOWTEL_CONFIGURATION_KEY para ativar o Mellowtel.");
@@ -278,6 +193,10 @@ function App() {
         }
     }
 
+    function handleOpenMellowtelSupport() {
+        openMellowtelSupportPage();
+    }
+
     const pageCount = poster?.tiles.length ?? 0;
 
     const hasImage = Boolean(imageSource);
@@ -285,9 +204,12 @@ function App() {
     return (
         <Container className="app-shell" maxWidth="xl" sx={{ py: { xs: 1.25, md: 2 }, px: { xs: 1, sm: 1.5 }, width: "100%" }}>
             <Stack spacing={2.25}>
-                <Home />
+                <Home onOpenMellowtelSupport={handleOpenMellowtelSupport} />
 
-                <Header onOpenMellowtelSettings={handleOpenMellowtelSettings} />
+                <Header
+                    onOpenMellowtelSettings={handleOpenMellowtelSettings}
+                    onOpenMellowtelSupport={handleOpenMellowtelSupport}
+                />
 
                 <Divider sx={{ my: 1.25 }} />
 
@@ -344,8 +266,6 @@ function App() {
                                     isBusy={isPrinting || isBuilding}
                                     hasPoster={Boolean(poster)}
                                     onDownloadPdf={handleDownloadPdf}
-                                    onPrint={handlePrint}
-                                    onOpenMellowtelSettings={handleOpenMellowtelSettings}
                                     onClearImage={handleClearImage}
                                 />
                             </>

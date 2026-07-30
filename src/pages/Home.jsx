@@ -20,7 +20,7 @@ const stats = [
 	{ value: "PDF", label: "para imprimir" }
 ];
 
-function Home() {
+function Home({ onOpenMellowtelSupport }) {
 	return (
 		<Paper
 			component="section"
@@ -138,6 +138,31 @@ function Home() {
 						))}
 					</Box>
 				</Stack>
+
+				<Paper
+					variant="outlined"
+					sx={{
+						p: { xs: 1.5, md: 2 },
+						borderRadius: 3,
+						borderColor: "rgba(14,165,161,0.22)",
+						background: "linear-gradient(135deg, rgba(14,165,161,0.10) 0%, rgba(255,255,255,0.94) 55%, rgba(251,146,60,0.08) 100%)"
+					}}
+				>
+					<Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ alignItems: { sm: "center" }, justifyContent: "space-between" }}>
+						<Stack spacing={0.5} sx={{ maxWidth: 680 }}>
+							<Typography variant="subtitle1" sx={{ fontWeight: 800, color: "#0f1724" }}>
+								Apoie o projeto com Mellowtel
+							</Typography>
+							<Typography sx={{ color: "text.secondary", lineHeight: 1.65 }}>
+								Se você usa esta ferramenta com frequência, pode apoiar o desenvolvimento pela página de suporte da Mellowtel sem mudar seu fluxo de uso.
+							</Typography>
+						</Stack>
+
+						<Button variant="contained" size="large" onClick={onOpenMellowtelSupport} sx={{ whiteSpace: "nowrap" }}>
+							Abrir apoio Mellowtel
+						</Button>
+					</Stack>
+				</Paper>
 
 				<Stack direction={{ xs: "column", sm: "row" }} spacing={1.25}>
 					<Button variant="contained" size="large" href="#workflow">

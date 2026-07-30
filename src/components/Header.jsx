@@ -6,7 +6,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-function Header({ onOpenMellowtelSettings }) {
+function Header({ onOpenMellowtelSettings, onOpenMellowtelSupport }) {
 	return (
 		<Stack
 			className="top-banner"
@@ -67,27 +67,46 @@ function Header({ onOpenMellowtelSettings }) {
 				</Stack>
 			</Stack>
 
-			<Button
-				variant="contained"
-				size="small"
-				startIcon={<AutoAwesomeRoundedIcon />}
-				onClick={onOpenMellowtelSettings}
-				sx={{
-					borderRadius: "8px",
-					textTransform: "none",
-					fontWeight: 600,
-					px: 2,
-					py: 0.8,
-					fontSize: "0.85rem",
-					whiteSpace: "nowrap",
-					boxShadow: "0 4px 12px rgba(0,0,0,.12)",
-					"&:hover": {
-						boxShadow: "0 6px 16px rgba(0,0,0,.16)",
-					},
-				}}
-			>
-				Configurar suporte Mellowtel
-			</Button>
+			<Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ flexShrink: 0 }}>
+				<Button
+					variant="outlined"
+					size="small"
+					onClick={onOpenMellowtelSupport}
+					sx={{
+						borderRadius: "8px",
+						textTransform: "none",
+						fontWeight: 600,
+						px: 2,
+						py: 0.8,
+						fontSize: "0.85rem",
+						whiteSpace: "nowrap",
+					}}
+				>
+					Apoiar com Mellowtel
+				</Button>
+
+				<Button
+					variant="contained"
+					size="small"
+					startIcon={<AutoAwesomeRoundedIcon />}
+					onClick={onOpenMellowtelSettings}
+					sx={{
+						borderRadius: "8px",
+						textTransform: "none",
+						fontWeight: 600,
+						px: 2,
+						py: 0.8,
+						fontSize: "0.85rem",
+						whiteSpace: "nowrap",
+						boxShadow: "0 4px 12px rgba(0,0,0,.12)",
+						"&:hover": {
+							boxShadow: "0 6px 16px rgba(0,0,0,.16)",
+						},
+					}}
+				>
+					Configurar suporte Mellowtel
+				</Button>
+			</Stack>
 		</Stack>
 	);
 }

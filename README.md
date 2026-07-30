@@ -20,6 +20,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 Crie uma variável de ambiente `VITE_MELLOWTEL_CONFIGURATION_KEY` com a chave do seu projeto no painel do Mellowtel. Sem essa chave, o popup funciona normalmente, mas os links de suporte do Mellowtel ficam desativados.
 
+Se quiser personalizar o link de apoio, defina também `VITE_MELLOWTEL_INVITE_ID`. O valor padrão usado no app é `cua2gok3nf9`.
+
+Observação: o snippet remoto `widget.js` do site do Mellowtel não é a forma adequada para esta extensão MV3, porque páginas de extensão não devem carregar script remoto. Aqui a monetização fica integrada pelo SDK e pelo link de apoio do painel da Mellowtel.
+
 ## Desenvolvimento
 
 ```bash

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-function Footer({ hasPoster, isBusy, onDownloadPdf, onPrint, onOpenMellowtelSettings, onClearImage }) {
+function Footer({ hasPoster, isBusy, onDownloadPdf, onClearImage }) {
 	return (
 		    <Paper className="footer-surface" variant="outlined">
 			    <div className="surface-number">4</div>
