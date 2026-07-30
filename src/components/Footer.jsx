@@ -49,6 +49,7 @@ function Footer({ hasPoster, isBusy, onDownloadPdf, onClearImage }) {
 					</Box>
 				)}
 			</Stack>
+			<>Feito por: Ranielly</>
 			</div>
 		</Paper>
 	);
